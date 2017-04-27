@@ -16,6 +16,7 @@
         <StackPanel Orientation="Vertical" Grid.Column="1" VerticalAlignment="Bottom">
             <Button Name="btnLoad" Padding="16" Margin="5" Click="Load_Click">Load</Button>
             <Button Name="btnSave" Padding="16" Margin="5" Click="Save_Click">Save</Button>
+            <Button Name="btnGenerate" Padding="16" Margin="5" Click="btnGenerate_Click">Generate</Button>
         </StackPanel>
     </Grid>
 </Window>

@@ -83,6 +83,38 @@ namespace Vialo.DataGenerator
             }
         }
 
+        private void btnGenerate_Click(object sender, RoutedEventArgs e)
+        {
+            string mapFilePathTrain = path + @"/train_map.txt";
+            string mapFilePathTest = path + @"/tes_map.txt";
+            File.Create(mapFilePathTrain);
+            File.Create(mapFilePathTest);
+
+            string[] hits = Directory.GetFiles(noisePath);
+            string[] miss = Directory.GetFiles(backgroundPath);
+            var lenHits = hits.Count();
+            var lenMiss = miss.Count();
+            var writer = new StreamWriter(mapFilePathTrain);
+            for (var i = 0; i < lenHits * 3 / 4; i++)
+            {
+                writer.WriteLine("%s\t%s", hits[i], "1");
+            }
+            for (var i = 0; i < lenMiss * 3 / 4; i++)
+            {
+                writer.WriteLine("%s\t%s", miss[i], "0");
+            }
+            writer.Close();
+            writer = new StreamWriter(mapFilePathTest);
+            for (var i = lenHits * 3 / 4; i < lenHits; i++)
+            {
+                writer.WriteLine("%s\t%s", hits[i], "1");
+            }
+            for (var i = lenMiss * 3 / 4; i < lenMiss; i++)
+            {
+                writer.WriteLine("%s\t%s", miss[i], "0");
+            }
+            writer.Close();
+        }
         private void Save_Click(object sender, RoutedEventArgs e)
         {
             if (File.Exists(path))
@@ -117,6 +149,7 @@ namespace Vialo.DataGenerator
                         idx++;
                     }
                 }
+
                 Application.Current.Shutdown();
             }
         }
