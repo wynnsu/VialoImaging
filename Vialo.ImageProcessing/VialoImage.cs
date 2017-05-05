@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Drawing;
 using static Vialo.ImageProcessing.Helper;
+using Vialo.Evaluate;
+using CNTK;
 
 namespace Vialo.ImageProcessing
 {
@@ -23,6 +25,13 @@ namespace Vialo.ImageProcessing
         {
             bmp = new Bitmap(path);
             return this;
+        }
+
+        public List<Bitmap> Evaluation()
+        {
+            string modelFilePath = "ConvNet_CIFAR10_DataAug_14.dnn";
+            var list=Evaluator.EvaluationBatchOfImages(DeviceDescriptor.CPUDevice, Fragment(32), modelFilePath);
+            return list;
         }
 
         public List<Bitmap> Fragment(int size)
