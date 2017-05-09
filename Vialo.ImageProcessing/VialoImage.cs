@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Drawing;
 using static Vialo.ImageProcessing.Helper;
-using Vialo.Evaluate;
 using CNTK;
 using System.IO;
+using System;
 
 namespace Vialo.ImageProcessing
 {
@@ -33,22 +33,27 @@ namespace Vialo.ImageProcessing
         public List<Bitmap> Evaluate(string modelFilePath)
         {
             //string modelFilePath = "ConvNet_CIFAR10_DataAug_14.dnn";
-            var list = Evaluator.EvaluationBatchOfImages(DeviceDescriptor.CPUDevice, Fragment(32), modelFilePath);
+            var list = Helper.EvaluationBatchOfImages(DeviceDescriptor.CPUDevice, Fragment(32), modelFilePath);
             return list;
         }
 
         public List<Bitmap> Fragment(int size)
         {
             var list = new List<Bitmap>();
-            var w = bmp.Width;
-            var h = bmp.Height;
-            var hMargin = w % size / 2;
-            var vMargin = h % size / 2;
+            var width = bmp.Width;
+            var height = bmp.Height;
+            var horizontalMargin = width % size / 2;
+            var verticalMargin = height % size / 2;
 
-            for (var i = vMargin; i < h - vMargin; i += size)
+            for (var i = verticalMargin; i < height - verticalMargin; i += size)
             {
-                for (var j = hMargin; j < w - hMargin; j += size)
+                for (var j = horizontalMargin; j < width - horizontalMargin; j += size)
                 {
+                    if ((i + size) > (height - verticalMargin) || (j + size) > (width - horizontalMargin))
+                    {
+                        Console.WriteLine("i={0}, j={1}", i, j);
+                        continue;
+                    }
                     list.Add(bmp.Clone(new Rectangle(j, i, size, size), bmp.PixelFormat));
                 }
             }

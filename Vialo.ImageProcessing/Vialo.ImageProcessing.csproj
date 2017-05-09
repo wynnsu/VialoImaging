@@ -49,9 +49,30 @@
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Cntk.Core.Managed-2.0rc2, Version=1.0.0.0, Culture=neutral, PublicKeyToken=21fff2ec8197defe, processorArchitecture=AMD64">
       <HintPath>..\packages\CNTK.CPUOnly.2.0.0-rc2\lib\net45\x64\Cntk.Core.Managed-2.0rc2.dll</HintPath>
+    </Reference>
+    <Reference Include="Cntk.Eval.Wrapper-2.0rc2, Version=0.0.0.0, Culture=neutral, PublicKeyToken=52681d72504348ec, processorArchitecture=AMD64">
+      <HintPath>..\packages\Microsoft.Research.CNTK.CpuEval-mkl.2.0.0-rc2\lib\net45\x64\Cntk.Eval.Wrapper-2.0rc2.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -64,16 +85,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CntkBitmapExtensions.cs" />
     <Compile Include="Helper.cs" />
     <Compile Include="VialoFragment.cs" />
     <Compile Include="VialoImage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Vialo.Evaluate\Vialo.Evaluate.csproj">
-      <Project>{1a762778-63f1-431e-bf92-9053447b0fe0}</Project>
-      <Name>Vialo.Evaluate</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="ConvNet_CIFAR10_DataAug_14.dnn">
@@ -88,5 +104,7 @@
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\CNTK.CPUOnly.2.0.0-rc2\build\net45\CNTK.CPUOnly.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\CNTK.CPUOnly.2.0.0-rc2\build\net45\CNTK.CPUOnly.targets'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.Research.CNTK.CpuEval-mkl.2.0.0-rc2\build\net45\Microsoft.Research.CNTK.CpuEval-mkl.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Research.CNTK.CpuEval-mkl.2.0.0-rc2\build\net45\Microsoft.Research.CNTK.CpuEval-mkl.targets'))" />
   </Target>
+  <Import Project="..\packages\Microsoft.Research.CNTK.CpuEval-mkl.2.0.0-rc2\build\net45\Microsoft.Research.CNTK.CpuEval-mkl.targets" Condition="Exists('..\packages\Microsoft.Research.CNTK.CpuEval-mkl.2.0.0-rc2\build\net45\Microsoft.Research.CNTK.CpuEval-mkl.targets')" />
 </Project>
