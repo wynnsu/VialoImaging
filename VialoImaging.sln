@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vialo.ImageProcessing", "Vi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vialo.Evaluate", "Vialo.Evaluate\Vialo.Evaluate.csproj", "{1A762778-63F1-431E-BF92-9053447B0FE0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vialo.TestEval", "Vialo.TestEval\Vialo.TestEval.csproj", "{C15A87EF-D14D-4D5A-9ED4-F1A783D83A4D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -41,6 +43,14 @@ Global
 		{1A762778-63F1-431E-BF92-9053447B0FE0}.Release|Any CPU.Build.0 = Release|Any CPU
 		{1A762778-63F1-431E-BF92-9053447B0FE0}.Release|x64.ActiveCfg = Release|x64
 		{1A762778-63F1-431E-BF92-9053447B0FE0}.Release|x64.Build.0 = Release|x64
+		{C15A87EF-D14D-4D5A-9ED4-F1A783D83A4D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C15A87EF-D14D-4D5A-9ED4-F1A783D83A4D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C15A87EF-D14D-4D5A-9ED4-F1A783D83A4D}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{C15A87EF-D14D-4D5A-9ED4-F1A783D83A4D}.Debug|x64.Build.0 = Debug|Any CPU
+		{C15A87EF-D14D-4D5A-9ED4-F1A783D83A4D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C15A87EF-D14D-4D5A-9ED4-F1A783D83A4D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C15A87EF-D14D-4D5A-9ED4-F1A783D83A4D}.Release|x64.ActiveCfg = Release|Any CPU
+		{C15A87EF-D14D-4D5A-9ED4-F1A783D83A4D}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -84,6 +84,7 @@ namespace Vialo.Evaluate
         {
             return File.ReadAllLines(filePath);
         }
+
         public static void EvaluationSingleImage(DeviceDescriptor device)
         {
             try
@@ -159,27 +160,41 @@ namespace Vialo.Evaluate
         /// </summary>
         /// <param name="device">Specify on which device to run the evaluation.</param>
 
+        //public static List<Bitmap> EvaluationBatchOfImages(DeviceDescriptor device)
+        //{
+        //    var pathList = new List<string>() { "125.bmp", "13.bmp", "6672.bmp" };
+        //    var imageList = new List<Bitmap>();
+        //    foreach (var image in pathList)
+        //    {
+        //        ThrowIfFileNotExist(image, string.Format("Error: The sample image '{0}' does not exist.", image));
+        //        imageList.Add(new Bitmap(image));
+        //    }
+        //    string modelFilePath = "ConvNet_CIFAR10_DataAug_14.dnn";
+        //    ThrowIfFileNotExist(modelFilePath, string.Format("Error: The model '{0}' does not exist.", modelFilePath));
+
+        //    var result = EvaluationBatchOfImages(device, imageList, modelFilePath);
+        //    for (int i = 0; i < result.Count; i += 2)
+        //    {
+        //        if (result[i].CompareTo(0.0f) > 0)
+        //        {
+        //            Console.WriteLine(pathList[i / 2] + " is Noise");
+        //        }
+        //        else if (result[i].CompareTo(0.0f) < 0)
+        //        {
+        //            Console.WriteLine(pathList[i / 2] + " is Background");
+        //        }
+        //    }
+
+        //    return null;
+        //}
         public static List<Bitmap> EvaluationBatchOfImages(DeviceDescriptor device, List<Bitmap> images, string modelPath)
         {
             var result = new List<Bitmap>();
+            var evalResult = new List<float>();
             try
             {
-                Console.WriteLine("\n===== Evaluate batch of images =====");
-
-                string modelFilePath = "ConvNet_CIFAR10_DataAug_14.dnn";
-                // This program uses images from the CIFAR-10 dataset for evaluation.
-                // Please see README.md in <CNTK>/Examples/Image/DataSets/CIFAR-10 about how to download the CIFAR-10 dataset.
-                var imageList = new List<string>() { "125.bmp", "13.bmp", "6672.bmp" };
-                foreach (var image in imageList)
-                {
-                    ThrowIfFileNotExist(image, string.Format("Error: The sample image '{0}' does not exist. Please see README.md in <CNTK>/Examples/Image/DataSets/CIFAR-10 about how to download the CIFAR-10 dataset.", image));
-                }
-                ThrowIfFileNotExist(modelFilePath, string.Format("Error: The model '{0}' does not exist. Please follow instructions in README.md in <CNTK>/Examples/Image/Classification/ResNet to create the model.", modelFilePath));
-
                 // Load the model.
-                // The model resnet20.dnn is trained by <CNTK>/Examples/Image/Classification/ResNet/Python/Models/TrainResNet_CIFAR10.py
-                // Please see README.md in <CNTK>/Examples/Image/Classification/ResNet about how to train the model.
-                Function modelFunc = Function.LoadModel(modelFilePath, device);
+                Function modelFunc = Function.LoadModel(modelPath, device);
 
                 // Get input variable. The model has only one single input.
                 // The same way described above for output variable can be used here to get input variable by name.
@@ -203,11 +218,12 @@ namespace Vialo.Evaluate
                 Bitmap bmp, resized;
                 List<float> resizedCHW;
                 var seqData = new List<float>();
+
                 for (int sampleIndex = 0; sampleIndex < images.Count; sampleIndex++)
                 {
                     bmp = images[sampleIndex];
-                    //resized = bmp.Resize((int)imageWidth, (int)imageHeight, true);
-                    resizedCHW = bmp.ParallelExtractCHW();
+                    resized = bmp.Resize((int)imageWidth, (int)imageHeight, true);
+                    resizedCHW = resized.ParallelExtractCHW();
                     // Aadd this sample to the data buffer.
                     seqData.AddRange(resizedCHW);
                 }
@@ -229,6 +245,23 @@ namespace Vialo.Evaluate
                 var outputData = outputVal.GetDenseData<float>(outputVar);
 
                 // Output result
+                int resultCount = 0;
+                foreach (var seq in outputData)
+                {
+                    foreach (var element in seq)
+                    {
+                        resultCount++;
+                        evalResult.Add(element);
+                    }
+                }
+
+                for (int i = 0; i < evalResult.Count; i += 2)
+                {
+                    if (evalResult[i].CompareTo(0.0f) > 0)
+                    {
+                        result.Add(images[i / 2]);
+                    }
+                }
                 PrintOutput(outputVar.Shape.TotalSize, outputData);
             }
             catch (Exception ex)
@@ -237,7 +270,6 @@ namespace Vialo.Evaluate
                 throw ex;
             }
             return result;
-
         }
     }
 }

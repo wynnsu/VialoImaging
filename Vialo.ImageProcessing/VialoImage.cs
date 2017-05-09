@@ -3,12 +3,14 @@ using System.Drawing;
 using static Vialo.ImageProcessing.Helper;
 using Vialo.Evaluate;
 using CNTK;
+using System.IO;
 
 namespace Vialo.ImageProcessing
 {
     public class VialoImage
     {
         private Bitmap bmp;
+        private string path;
 
         public Image GetImage()
         {
@@ -23,14 +25,15 @@ namespace Vialo.ImageProcessing
 
         public VialoImage Init(string path)
         {
+            this.path = path;
             bmp = new Bitmap(path);
             return this;
         }
 
-        public List<Bitmap> Evaluation()
+        public List<Bitmap> Evaluate(string modelFilePath)
         {
-            string modelFilePath = "ConvNet_CIFAR10_DataAug_14.dnn";
-            var list=Evaluator.EvaluationBatchOfImages(DeviceDescriptor.CPUDevice, Fragment(32), modelFilePath);
+            //string modelFilePath = "ConvNet_CIFAR10_DataAug_14.dnn";
+            var list = Evaluator.EvaluationBatchOfImages(DeviceDescriptor.CPUDevice, Fragment(32), modelFilePath);
             return list;
         }
 
