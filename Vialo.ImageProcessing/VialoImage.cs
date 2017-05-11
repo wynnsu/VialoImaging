@@ -4,6 +4,7 @@ using static Vialo.ImageProcessing.Helper;
 using CNTK;
 using System.IO;
 using System;
+using Vialo.Evaluate;
 
 namespace Vialo.ImageProcessing
 {
@@ -42,21 +43,15 @@ namespace Vialo.ImageProcessing
         public List<Bitmap> Fragment(int size)
         {
             var list = new List<Bitmap>();
-            var width = bmp.Width;
-            var height = bmp.Height;
-            var horizontalMargin = width % size / 2;
-            var verticalMargin = height % size / 2;
+            var w = bmp.Width;
+            var h = bmp.Height;
+            var hMargin = w % size / 2;
+            var vMargin = h % size / 2;
 
             for (var i = vMargin; i + size <= h - vMargin; i += size)
             {
                 for (var j = hMargin; j + size <= w - hMargin; j += size)
-
                 {
-                    if ((i + size) > (height - verticalMargin) || (j + size) > (width - horizontalMargin))
-                    {
-                        Console.WriteLine("i={0}, j={1}", i, j);
-                        continue;
-                    }
                     list.Add(bmp.Clone(new Rectangle(j, i, size, size), bmp.PixelFormat));
                 }
             }
