@@ -187,6 +187,7 @@ namespace Vialo.Evaluate
 
         //    return null;
         //}
+
         public static List<Bitmap> EvaluationBatchOfImages(DeviceDescriptor device, List<Bitmap> images, string modelPath)
         {
             var result = new List<Bitmap>();
