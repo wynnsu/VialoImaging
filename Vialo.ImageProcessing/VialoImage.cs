@@ -32,8 +32,10 @@ namespace Vialo.ImageProcessing
 
         public List<Bitmap> Evaluate(string modelFilePath)
         {
-            //string modelFilePath = "ConvNet_CIFAR10_DataAug_14.dnn";
-            var list = Helper.EvaluationBatchOfImages(DeviceDescriptor.CPUDevice, Fragment(32), modelFilePath);
+
+            var images = Fragment(32);
+            var list = Evaluator.EvaluationBatchOfImages(DeviceDescriptor.CPUDevice, images, modelFilePath);
+
             return list;
         }
 
@@ -45,9 +47,10 @@ namespace Vialo.ImageProcessing
             var horizontalMargin = width % size / 2;
             var verticalMargin = height % size / 2;
 
-            for (var i = verticalMargin; i < height - verticalMargin; i += size)
+            for (var i = vMargin; i + size <= h - vMargin; i += size)
             {
-                for (var j = horizontalMargin; j < width - horizontalMargin; j += size)
+                for (var j = hMargin; j + size <= w - hMargin; j += size)
+
                 {
                     if ((i + size) > (height - verticalMargin) || (j + size) > (width - horizontalMargin))
                     {

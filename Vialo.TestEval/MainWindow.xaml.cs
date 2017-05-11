@@ -30,43 +30,17 @@ namespace Vialo.TestEval
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            string path = @"C:\Users\su153\Source\Repos\VialoImaging\Vialo.TestEval\Picture1.png";
-            VialoImage vImage;
-            //Microsoft.Win32.OpenFileDialog ofd = new Microsoft.Win32.OpenFileDialog();
-            //if (ofd.ShowDialog() != true) { return; }
-            //path = ofd.FileName;
-
-            vImage = new VialoImage();
-            vImage.Init(path);
-
-            //Microsoft.Win32.OpenFileDialog ofdModel = new Microsoft.Win32.OpenFileDialog();
-            //ofdModel = new Microsoft.Win32.OpenFileDialog();
-            //ofdModel.DefaultExt = "dnn";
-            //if (ofdModel.ShowDialog() != true) { return; }
-            //string modelPath = ofdModel.FileName;
-
-            var images = vImage.Fragment(32);
-
-            string modelPath = @"C:\Users\su153\Source\Repos\VialoImaging\Vialo.TestEval\ConvNet_CIFAR10_DataAug_14.dnn";
-
-            var result = vImage.Evaluate(modelPath);
-            System.Windows.Controls.Image image;
-            foreach (var bmp in result)
+            string path = @"C:\Users\Wynn\Documents\visual studio 2017\Projects\VialoImaging\Vialo.TestEval\results\";
+            VialoImage vImage = new VialoImage();
+            vImage.Init(@"C:\Users\Wynn\Documents\visual studio 2017\Projects\VialoImaging\Vialo.TestEval\T1_220 microns_flash.bmp");
+            Console.WriteLine("Good Init");
+            var result = vImage.Evaluate(@"C:\Users\Wynn\Documents\visual studio 2017\Projects\VialoImaging\Vialo.TestEval\ConvNet_CIFAR10_DataAug_14.dnn");
+            var count = Directory.GetFiles(path).Length;
+            foreach (var img in result)
             {
-                using (MemoryStream memory = new MemoryStream())
-                {
-                    image = new System.Windows.Controls.Image();
-                    bmp.Save(memory, ImageFormat.Bmp);
-                    memory.Position = 0;
-                    BitmapImage bitmapImage = new BitmapImage();
-                    bitmapImage.BeginInit();
-                    bitmapImage.StreamSource = memory;
-                    bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
-                    bitmapImage.EndInit();
-                    image.Source = bitmapImage;
-                    container.Children.Add(image);
-                }
+                img.Save(path + (count++) + ".bmp");
             }
+            Application.Current.Shutdown();
         }
 
 
