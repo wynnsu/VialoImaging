@@ -150,44 +150,6 @@ namespace Vialo.Evaluate
             }
         }
 
-        /// <summary>
-        /// The example shows
-        /// - how to load model.
-        /// - how to prepare input data for a batch of samples.
-        /// - how to prepare input and output data map.
-        /// - how to evaluate a model.
-        /// - how to retrieve evaluation result and retrieve output data in dense format.
-        /// </summary>
-        /// <param name="device">Specify on which device to run the evaluation.</param>
-
-        //public static List<Bitmap> EvaluationBatchOfImages(DeviceDescriptor device)
-        //{
-        //    var pathList = new List<string>() { "125.bmp", "13.bmp", "6672.bmp" };
-        //    var imageList = new List<Bitmap>();
-        //    foreach (var image in pathList)
-        //    {
-        //        ThrowIfFileNotExist(image, string.Format("Error: The sample image '{0}' does not exist.", image));
-        //        imageList.Add(new Bitmap(image));
-        //    }
-        //    string modelFilePath = "ConvNet_CIFAR10_DataAug_14.dnn";
-        //    ThrowIfFileNotExist(modelFilePath, string.Format("Error: The model '{0}' does not exist.", modelFilePath));
-
-        //    var result = EvaluationBatchOfImages(device, imageList, modelFilePath);
-        //    for (int i = 0; i < result.Count; i += 2)
-        //    {
-        //        if (result[i].CompareTo(0.0f) > 0)
-        //        {
-        //            Console.WriteLine(pathList[i / 2] + " is Noise");
-        //        }
-        //        else if (result[i].CompareTo(0.0f) < 0)
-        //        {
-        //            Console.WriteLine(pathList[i / 2] + " is Background");
-        //        }
-        //    }
-
-        //    return null;
-        //}
-
         public static List<Bitmap> EvaluationBatchOfImages(DeviceDescriptor device, List<Bitmap> images, string modelPath)
         {
             var result = new List<Bitmap>();
