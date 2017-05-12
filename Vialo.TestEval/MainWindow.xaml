@@ -5,15 +5,19 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Vialo.TestEval"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
+        Title="MainWindow" Height="768" Width="1366">
     <Grid>
-        <WrapPanel Name="container" HorizontalAlignment="Left" Margin="10" VerticalAlignment="Top"/>
-        <WrapPanel Name="result_list" Orientation="Horizontal" HorizontalAlignment="Left" Margin="10" VerticalAlignment="Top">
-            
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.5*"/>
+            <ColumnDefinition Width="0.5*"/>
+        </Grid.ColumnDefinitions>
+        <WrapPanel Name="container" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Grid.Column="0"/>
+        <WrapPanel Name="result_list" Orientation="Horizontal" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Grid.Column="1">
+
         </WrapPanel>
-        <StackPanel Orientation="Vertical" Margin="10" VerticalAlignment="Bottom" HorizontalAlignment="Right">
-            <Button Content="Eval" Width="100" Click="Button_Click" Margin="5"/>
-            <Button Content="Calc" Width="100" Click="Button_Click_1" Margin="5"/>
+        <StackPanel Orientation="Vertical" Margin="0,0,10,10" VerticalAlignment="Bottom" HorizontalAlignment="Right" Grid.Column="1">
+            <Button Content="Eval" Width="100" Click="Eval_Click" Margin="5"/>
+            <Button Content="Save" Width="100" Click="Save_Click" Margin="5"/>
         </StackPanel>
     </Grid>
 </Window>

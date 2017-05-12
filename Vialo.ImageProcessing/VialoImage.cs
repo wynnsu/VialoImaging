@@ -1,8 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Drawing;
-using static Vialo.ImageProcessing.Helper;
 using CNTK;
-using Vialo.Evaluate;
 
 namespace Vialo.ImageProcessing
 {
@@ -31,7 +29,6 @@ namespace Vialo.ImageProcessing
 
         public List<Bitmap> Evaluate(string modelFilePath)
         {
-
             var images = Fragment(32);
             var list = Evaluator.EvaluationBatchOfImages(DeviceDescriptor.CPUDevice, images, modelFilePath);
 
@@ -160,5 +157,16 @@ namespace Vialo.ImageProcessing
         {
             bmp.Save(path);
         }
+    }
+
+
+    public enum EdgeFilterType
+    {
+        EdgeDetectMono, EdgeDetectGradient, Sharpen, SharpenGradient
+    }
+
+    public enum BooleanFilterType
+    {
+        Sharpen, EdgeDetection
     }
 }
