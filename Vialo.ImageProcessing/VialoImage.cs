@@ -2,8 +2,6 @@
 using System.Drawing;
 using static Vialo.ImageProcessing.Helper;
 using CNTK;
-using System.IO;
-using System;
 using Vialo.Evaluate;
 
 namespace Vialo.ImageProcessing

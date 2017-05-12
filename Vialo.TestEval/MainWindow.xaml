@@ -7,10 +7,13 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525">
     <Grid>
-        <WrapPanel Name="container" HorizontalAlignment="Left" Height="301" Margin="10,10,0,0" VerticalAlignment="Top" Width="419"/>
-        <StackPanel Orientation="Vertical" Margin="434,10,9.667,9.667" VerticalAlignment="Bottom">
-            <Button Content="Eval" Width="75" Click="Button_Click"/>
-            <Button Content="Save" Width="75" Click="Button_Click_1"/>
+        <WrapPanel Name="container" HorizontalAlignment="Left" Margin="10" VerticalAlignment="Top"/>
+        <WrapPanel Name="result_list" Orientation="Horizontal" HorizontalAlignment="Left" Margin="10" VerticalAlignment="Top">
+            
+        </WrapPanel>
+        <StackPanel Orientation="Vertical" Margin="10" VerticalAlignment="Bottom" HorizontalAlignment="Right">
+            <Button Content="Eval" Width="100" Click="Button_Click" Margin="5"/>
+            <Button Content="Calc" Width="100" Click="Button_Click_1" Margin="5"/>
         </StackPanel>
     </Grid>
 </Window>
