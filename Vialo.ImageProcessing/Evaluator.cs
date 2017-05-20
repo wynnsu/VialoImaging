@@ -9,13 +9,21 @@ using CNTK;
 
 namespace Vialo.ImageProcessing
 {
+    /// <summary>
+    /// Provide method for image evaluation with pre-trained models
+    /// </summary>
     public class Evaluator
     {
-
+        /// <summary>
+        /// Evaluate batch of images using pre-trained models
+        /// </summary>
+        /// <param name="device">Device type</param>
+        /// <param name="images">List of 32x32 Bitmap objects</param>
+        /// <param name="modelPath">File path to the .dnn pre-trained model file</param>
+        /// <returns></returns>
         public static List<Bitmap> EvaluationBatchOfImages(DeviceDescriptor device, List<Bitmap> images, string modelPath)
         {
             var result = new List<Bitmap>();
-            var evalResult = new List<float>();
             try
             {
                 // Load the model.
@@ -70,23 +78,16 @@ namespace Vialo.ImageProcessing
                 var outputData = outputVal.GetDenseData<float>(outputVar);
 
                 // Output result
-                int resultCount = 0;
                 foreach (var seq in outputData)
                 {
-                    foreach (var element in seq)
+                    if (seq.Count == 2)
                     {
-                        resultCount++;
-                        evalResult.Add(element);
+                        if (seq[0].CompareTo(0.0f) > 0)
+                        {
+                            result.Add(images[outputData.IndexOf(seq)]);
+                        }
                     }
-                }
-
-                for (int i = 0; i < evalResult.Count; i += 2)
-                {
-                    if (evalResult[i].CompareTo(0.0f) > 0)
-                    {
-                        result.Add(images[i / 2]);
-                    }
-                }
+                }                
             }
             catch (Exception ex)
             {

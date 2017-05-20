@@ -15,7 +15,7 @@ namespace Vialo.TestEval
     {
         string basePath;
         string resultPath = @"results";
-        string imagePath = @"T1_220 microns_flash.bmp";
+        string imagePath = @"ss192d.bmp";
         string modelPath = @"ConvNet_CIFAR10_DataAug_14.dnn";
 
         public MainWindow()
@@ -56,6 +56,7 @@ namespace Vialo.TestEval
                       return bitmapimage;
                   }
               };
+
             result.ForEach(
                 i => result_list.Children.Add(new System.Windows.Controls.Image()
                 {

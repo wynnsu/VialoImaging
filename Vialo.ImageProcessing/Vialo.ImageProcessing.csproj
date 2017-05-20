@@ -93,8 +93,6 @@
   <ItemGroup>
     <Compile Include="CntkBitmapExtensions.cs" />
     <Compile Include="Evaluator.cs" />
-    <Compile Include="Helper.cs" />
-    <Compile Include="VialoFragment.cs" />
     <Compile Include="VialoImage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -102,6 +100,7 @@
     <None Include="ConvNet_CIFAR10_DataAug_14.dnn">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="LICENSE.md" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
