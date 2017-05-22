@@ -2,7 +2,9 @@
 CNTK ConvNet Example and C# Eval Example put into practice
 
 #### **Requirements:**
-* Anaconda3 Python 3.5 Environment
+* [Visual Studio 2017 Community](https://www.visualstudio.com/downloads/)
+	* P.S. Make sure to check **.NET Desktop Development** when installing
+* [Anaconda Python 3.5 Environment](https://www.continuum.io/downloads)
 * [CNTK Nuget Package](https://www.nuget.org/packages/CNTK.CPUOnly/2.0.0-rc2)
 
 ## Prepare dataset
